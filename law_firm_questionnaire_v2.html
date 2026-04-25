@@ -1,0 +1,533 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary);line-height:1.5;font-size:14px}
+.wrap{max-width:680px;margin:0 auto;padding:0 0 3rem}
+.top-bar{background:var(--color-text-primary);color:var(--color-background-primary);padding:18px 20px;border-radius:var(--border-radius-lg) var(--border-radius-lg) 0 0;margin-bottom:0}
+.top-bar h1{font-size:15px;font-weight:500;letter-spacing:0.01em}
+.top-bar p{font-size:12px;opacity:0.7;margin-top:3px}
+.prog-wrap{background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);padding:10px 16px;display:flex;align-items:center;gap:12px;border-top:none}
+.prog-track{flex:1;height:6px;background:var(--color-border-tertiary);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--color-text-primary);border-radius:3px;transition:width 0.35s}
+.prog-txt{font-size:12px;color:var(--color-text-secondary);white-space:nowrap;min-width:80px;text-align:right}
+.card{background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-top:none;border-radius:0 0 var(--border-radius-lg) var(--border-radius-lg);padding:20px}
+.sec{display:none}.sec.on{display:block}
+.sec-hd{font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-secondary);padding-bottom:10px;border-bottom:1.5px solid var(--color-border-primary);margin-bottom:18px}
+.sec-note{font-size:12px;color:var(--color-text-secondary);margin:-12px 0 16px}
+.q{margin-bottom:14px}
+.q-lbl{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px;display:block}
+.q-lbl .req{color:#c0392b;margin-left:2px}
+.q-hint{font-size:11px;color:var(--color-text-tertiary);margin-bottom:4px}
+input[type=text],input[type=date],textarea,select{
+  width:100%;padding:9px 11px;font-size:13px;
+  border:1.5px solid var(--color-border-primary);
+  border-radius:6px;
+  background:var(--color-background-primary);
+  color:var(--color-text-primary);
+  font-family:var(--font-sans);
+  transition:border-color 0.15s,box-shadow 0.15s;
+  display:block
+}
+input[type=text]:focus,input[type=date]:focus,textarea:focus,select:focus{
+  outline:none;
+  border-color:var(--color-text-primary);
+  box-shadow:0 0 0 3px var(--color-background-secondary)
+}
+input[type=text]::placeholder,textarea::placeholder{color:var(--color-text-tertiary)}
+textarea{resize:vertical;min-height:72px;line-height:1.5}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.radio-row,.check-row{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px}
+.radio-row label,.check-row label{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;color:var(--color-text-primary)}
+.radio-col{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.radio-col label,.check-col label{display:flex;align-items:flex-start;gap:7px;font-size:13px;cursor:pointer;color:var(--color-text-primary)}
+.check-col{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+input[type=radio],input[type=checkbox]{accent-color:var(--color-text-primary);margin-top:1px;flex-shrink:0;width:14px;height:14px}
+.pa-table{width:100%;border-collapse:collapse;font-size:13px}
+.pa-table th{text-align:left;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-secondary);padding:6px 8px;border-bottom:1.5px solid var(--color-border-primary);background:var(--color-background-secondary)}
+.pa-table td{padding:8px 8px;border-bottom:1px solid var(--color-border-tertiary);vertical-align:middle}
+.pa-table tr:last-child td{border-bottom:none}
+.pa-table td:first-child{font-weight:400;color:var(--color-text-primary)}
+.pa-table td label{display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap;font-size:12px}
+.pa-table tr:hover td{background:var(--color-background-secondary)}
+.comp-block{border:1px solid var(--color-border-secondary);border-radius:6px;padding:12px;margin-bottom:10px}
+.comp-block-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-secondary);margin-bottom:8px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--color-border-tertiary)}
+.btn{padding:8px 20px;font-size:13px;border-radius:6px;cursor:pointer;font-family:var(--font-sans);border:1.5px solid var(--color-border-primary);background:var(--color-background-primary);color:var(--color-text-primary);transition:background 0.12s}
+.btn:hover{background:var(--color-background-secondary)}
+.btn:disabled{opacity:0.3;cursor:not-allowed}
+.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.btn-primary:hover{opacity:0.82;background:var(--color-text-primary)}
+.done-wrap{text-align:center;padding:2.5rem 1rem}
+.done-check{width:44px;height:44px;border-radius:50%;background:var(--color-background-secondary);border:1.5px solid var(--color-border-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px}
+.done-wrap h2{font-size:17px;font-weight:500;margin-bottom:6px}
+.done-wrap p{font-size:13px;color:var(--color-text-secondary);margin-bottom:20px}
+.dl-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.divider{height:1px;background:var(--color-border-tertiary);margin:14px 0}
+.grp-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-secondary);margin:16px 0 8px;padding-top:14px;border-top:1px solid var(--color-border-tertiary)}
+.grp-lbl:first-child{margin-top:0;padding-top:0;border-top:none}
+</style>
+
+<div class="wrap">
+<div class="top-bar">
+  <h1>Law Firm Website Project — Client Questionnaire</h1>
+  <p>Strictly confidential. All information used solely for building your website.</p>
+</div>
+<div class="prog-wrap">
+  <div class="prog-track"><div class="prog-fill" id="prog" style="width:6%"></div></div>
+  <div class="prog-txt" id="prog-txt">Section 1 of 15</div>
+</div>
+<div class="card">
+
+<!-- S1 -->
+<div class="sec on" id="s1">
+<div class="sec-hd">Section 1 — Firm general information</div>
+<div class="q"><label class="q-lbl">1.1 Full official name of the law firm <span class="req">*</span></label><input type="text" id="f1_1" placeholder="e.g. Adeyemi & Partners Legal Practitioners"></div>
+<div class="q"><label class="q-lbl">1.2 Trading name (if different)</label><input type="text" id="f1_2"></div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">1.3 Year established <span class="req">*</span></label><input type="text" id="f1_3" placeholder="e.g. 2005"></div>
+  <div class="q"><label class="q-lbl">1.6 ZIP / Postal code</label><input type="text" id="f1_6"></div>
+</div>
+<div class="q"><label class="q-lbl">1.4 Physical office address <span class="req">*</span></label><textarea id="f1_4" rows="2" placeholder="Street address, area..."></textarea></div>
+<div class="q"><label class="q-lbl">1.5 City, State / Province, Country <span class="req">*</span></label><input type="text" id="f1_5" placeholder="e.g. Lagos, Lagos State, Nigeria"></div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">1.7 Office phone number(s) <span class="req">*</span></label><input type="text" id="f1_7" placeholder="+234 ..."></div>
+  <div class="q"><label class="q-lbl">1.8 Fax number</label><input type="text" id="f1_8"></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">1.9 Primary contact email <span class="req">*</span></label><input type="text" id="f1_9" placeholder="name@firm.com"></div>
+  <div class="q"><label class="q-lbl">1.10 Website enquiries email</label><input type="text" id="f1_10"></div>
+</div>
+<div class="q"><label class="q-lbl">1.11 WhatsApp business number</label><input type="text" id="f1_11"></div>
+<div class="q"><label class="q-lbl">1.12 More than one office location? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f1_12" value="Yes"> Yes</label><label><input type="radio" name="f1_12" value="No"> No</label></div>
+</div>
+<div class="q"><label class="q-lbl">1.13 If yes, list all branch addresses</label><textarea id="f1_13" rows="2" placeholder="One address per line..."></textarea></div>
+<div class="q"><label class="q-lbl">1.14 Office hours <span class="req">*</span></label><input type="text" id="f1_14" placeholder="e.g. Mon–Fri 8am–6pm, Sat 9am–1pm"></div>
+</div>
+
+<!-- S2 -->
+<div class="sec" id="s2">
+<div class="sec-hd">Section 2 — Domain & existing online presence</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">2.1 Registered domain name</label><input type="text" id="f2_1" placeholder="e.g. lawfirmname.com"></div>
+  <div class="q"><label class="q-lbl">2.2 Domain registrar</label><input type="text" id="f2_2" placeholder="e.g. GoDaddy, Namecheap"></div>
+</div>
+<div class="q"><label class="q-lbl">2.3 Do you have an existing website? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f2_3" value="Yes"> Yes</label><label><input type="radio" name="f2_3" value="No"> No</label></div>
+</div>
+<div class="q"><label class="q-lbl">2.4 Current website URL</label><input type="text" id="f2_4" placeholder="https://"></div>
+<div class="q"><label class="q-lbl">2.5 What do you like about your current site?</label><textarea id="f2_5" rows="2"></textarea></div>
+<div class="q"><label class="q-lbl">2.6 What do you dislike about it?</label><textarea id="f2_6" rows="2"></textarea></div>
+<div class="q"><label class="q-lbl">2.7 Existing social media pages? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f2_7" value="Yes"> Yes</label><label><input type="radio" name="f2_7" value="No"> No</label></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">Facebook</label><input type="text" id="f2_8a" placeholder="URL or @handle"></div>
+  <div class="q"><label class="q-lbl">LinkedIn</label><input type="text" id="f2_8b" placeholder="URL or @handle"></div>
+  <div class="q"><label class="q-lbl">Instagram</label><input type="text" id="f2_8c" placeholder="URL or @handle"></div>
+  <div class="q"><label class="q-lbl">Twitter / X</label><input type="text" id="f2_8d" placeholder="URL or @handle"></div>
+  <div class="q"><label class="q-lbl">YouTube</label><input type="text" id="f2_8e" placeholder="Channel URL"></div>
+  <div class="q"><label class="q-lbl">Other</label><input type="text" id="f2_8f"></div>
+</div>
+<div class="q"><label class="q-lbl">2.9 Google Business Profile?</label>
+  <div class="radio-row"><label><input type="radio" name="f2_9" value="Yes"> Yes</label><label><input type="radio" name="f2_9" value="No"> No</label><label><input type="radio" name="f2_9" value="Not sure"> Not sure</label></div>
+</div>
+</div>
+
+<!-- S3 -->
+<div class="sec" id="s3">
+<div class="sec-hd">Section 3 — Branding & visual identity</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">3.1 Do you have an existing logo? <span class="req">*</span></label>
+    <div class="radio-row"><label><input type="radio" name="f3_1" value="Yes"> Yes</label><label><input type="radio" name="f3_1" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">3.2 Available in high resolution (PNG/SVG)?</label>
+    <div class="radio-row"><label><input type="radio" name="f3_2" value="Yes"> Yes</label><label><input type="radio" name="f3_2" value="No"> No</label></div>
+  </div>
+</div>
+<div class="q"><label class="q-lbl">3.3 Do you need a new logo designed?</label>
+  <div class="radio-row"><label><input type="radio" name="f3_3" value="Yes"> Yes</label><label><input type="radio" name="f3_3" value="No"> No</label></div>
+</div>
+<div class="q"><label class="q-lbl">3.4 Official brand colors (HEX codes if known)</label><input type="text" id="f3_4" placeholder="e.g. #1A2B5A, #C9A84C"></div>
+<div class="q"><label class="q-lbl">3.5 If no set colors — preferred tones</label>
+  <div class="check-row"><label><input type="checkbox" name="f3_5" value="Navy Blue"> Navy Blue</label><label><input type="checkbox" name="f3_5" value="Dark Grey"> Dark Grey</label><label><input type="checkbox" name="f3_5" value="Black & Gold"> Black & Gold</label><label><input type="checkbox" name="f3_5" value="Burgundy"> Burgundy</label><label><input type="checkbox" name="f3_5" value="Other"> Other</label></div>
+</div>
+<div class="q"><label class="q-lbl">3.6 Preferred fonts / typography</label><input type="text" id="f3_6" placeholder="Leave blank to let the team decide"></div>
+<div class="q"><label class="q-lbl">3.7 Desired look & feel <span class="req">*</span></label>
+  <div class="check-col"><label><input type="checkbox" name="f3_7" value="Corporate & Formal"> Corporate & Formal</label><label><input type="checkbox" name="f3_7" value="Modern & Minimal"> Modern & Minimal</label><label><input type="checkbox" name="f3_7" value="Classic & Traditional"> Classic & Traditional</label><label><input type="checkbox" name="f3_7" value="Bold & Authoritative"> Bold & Authoritative</label><label><input type="checkbox" name="f3_7" value="Friendly & Approachable"> Friendly & Approachable</label></div>
+</div>
+<div class="q"><label class="q-lbl">3.8 Reference websites you admire</label>
+  <input type="text" id="f3_8a" placeholder="Reference site #1 — URL" style="margin-bottom:6px">
+  <input type="text" id="f3_8b" placeholder="Reference site #2 — URL" style="margin-bottom:6px">
+  <input type="text" id="f3_8c" placeholder="Reference site #3 — URL">
+</div>
+<div class="q"><label class="q-lbl">3.9 What do you like about those sites?</label><textarea id="f3_9" rows="2"></textarea></div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">3.10 Brand guidelines / style guide?</label>
+    <div class="radio-row"><label><input type="radio" name="f3_10" value="Yes — will attach"> Yes</label><label><input type="radio" name="f3_10" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">3.11 Attorney photos available?</label>
+    <div class="radio-row"><label><input type="radio" name="f3_11" value="Yes"> Yes</label><label><input type="radio" name="f3_11" value="No"> No</label><label><input type="radio" name="f3_11" value="Later"> Later</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">3.12 Office photos available?</label>
+    <div class="radio-row"><label><input type="radio" name="f3_12" value="Yes"> Yes</label><label><input type="radio" name="f3_12" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">3.13 Open to stock photography?</label>
+    <div class="radio-row"><label><input type="radio" name="f3_13" value="Yes"> Yes</label><label><input type="radio" name="f3_13" value="No"> No</label><label><input type="radio" name="f3_13" value="If needed"> If needed</label></div>
+  </div>
+</div>
+</div>
+
+<!-- S4 -->
+<div class="sec" id="s4">
+<div class="sec-hd">Section 4 — Firm overview & story</div>
+<div class="q"><label class="q-lbl">4.1 Briefly describe your law firm (3–5 sentences) <span class="req">*</span></label><textarea id="f4_1" rows="4" placeholder="Who you are, what you do, who you serve..."></textarea></div>
+<div class="q"><label class="q-lbl">4.2 Mission statement <span class="req">*</span></label><textarea id="f4_2" rows="3" placeholder="Why your firm exists..."></textarea></div>
+<div class="q"><label class="q-lbl">4.3 Vision statement</label><textarea id="f4_3" rows="3" placeholder="Where you are headed..."></textarea></div>
+<div class="q"><label class="q-lbl">4.4 Core values <span class="req">*</span></label><textarea id="f4_4" rows="2" placeholder="e.g. Integrity, Excellence, Justice, Client-focus..."></textarea></div>
+<div class="q"><label class="q-lbl">4.5 What makes your firm different? (USP) <span class="req">*</span></label><textarea id="f4_5" rows="3" placeholder="Your unique strengths and differentiators..."></textarea></div>
+<div class="q"><label class="q-lbl">4.6 Key achievements or milestones</label><textarea id="f4_6" rows="3" placeholder="Awards, landmark cases, years in operation..."></textarea></div>
+<div class="q"><label class="q-lbl">4.7 Geographic areas / jurisdictions served <span class="req">*</span></label><input type="text" id="f4_7" placeholder="e.g. Lagos, Abuja, all Nigerian federal courts"></div>
+</div>
+
+<!-- S5 -->
+<div class="sec" id="s5">
+<div class="sec-hd">Section 5 — Practice areas / legal services</div>
+<div class="sec-note">Select the priority for each area your firm offers, or mark "No" to exclude.</div>
+<table class="pa-table">
+<thead><tr><th>Practice area</th><th>High</th><th>Medium</th><th>Low</th><th>No</th></tr></thead>
+<tbody id="pa-tbody"></tbody>
+</table>
+<div class="q" style="margin-top:12px"><label class="q-lbl">5.16 Other practice area</label><input type="text" id="f5_16" placeholder="Specify..."></div>
+<div class="q"><label class="q-lbl">5.17 Additional practice area</label><input type="text" id="f5_17" placeholder="Specify..."></div>
+<div class="q"><label class="q-lbl">5.18 Who provides content for each area? <span class="req">*</span></label>
+  <div class="radio-col"><label><input type="radio" name="f5_18" value="I will provide content for all areas"> I will provide content for all areas</label><label><input type="radio" name="f5_18" value="I provide some — team writes the rest"> I provide some — team writes the rest</label><label><input type="radio" name="f5_18" value="Team writes all (we will review and approve)"> Team writes all (we will review and approve)</label></div>
+</div>
+</div>
+
+<!-- S6 -->
+<div class="sec" id="s6">
+<div class="sec-hd">Section 6 — Attorney / team profiles</div>
+<div class="sec-note">Complete for your primary attorney. Additional profiles can be sent separately.</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">6.1 Full name <span class="req">*</span></label><input type="text" id="f6_1"></div>
+  <div class="q"><label class="q-lbl">6.2 Title / Designation <span class="req">*</span></label><input type="text" id="f6_2" placeholder="e.g. Senior Partner"></div>
+</div>
+<div class="g3">
+  <div class="q"><label class="q-lbl">6.3 Bar admission no.</label><input type="text" id="f6_3"></div>
+  <div class="q"><label class="q-lbl">6.4 Year called to bar</label><input type="text" id="f6_4"></div>
+  <div class="q"><label class="q-lbl">6.10 Years of experience</label><input type="text" id="f6_10"></div>
+</div>
+<div class="q"><label class="q-lbl">6.5 Jurisdictions admitted to practice</label><input type="text" id="f6_5"></div>
+<div class="g3">
+  <div class="q"><label class="q-lbl">6.6 Law school</label><input type="text" id="f6_6"></div>
+  <div class="q"><label class="q-lbl">6.7 Degree(s)</label><input type="text" id="f6_7"></div>
+  <div class="q"><label class="q-lbl">6.8 Year of graduation</label><input type="text" id="f6_8"></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">6.9 Areas of specialization</label><input type="text" id="f6_9"></div>
+  <div class="q"><label class="q-lbl">6.11 Languages spoken</label><input type="text" id="f6_11"></div>
+</div>
+<div class="q"><label class="q-lbl">6.12 Notable cases / achievements</label><textarea id="f6_12" rows="2"></textarea></div>
+<div class="q"><label class="q-lbl">6.13 Professional memberships</label><textarea id="f6_13" rows="2"></textarea></div>
+<div class="q"><label class="q-lbl">6.14 Awards & recognitions</label><textarea id="f6_14" rows="2"></textarea></div>
+<div class="q"><label class="q-lbl">6.15 Personal bio (150–300 words)</label><textarea id="f6_15" rows="5" placeholder="Professional background, experience, approach..."></textarea></div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">6.16 Headshot available?</label>
+    <div class="radio-row"><label><input type="radio" name="f6_16" value="Yes"> Yes</label><label><input type="radio" name="f6_16" value="No"> No</label><label><input type="radio" name="f6_16" value="Later"> Later</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">6.17 LinkedIn URL</label><input type="text" id="f6_17" placeholder="https://linkedin.com/in/..."></div>
+  <div class="q"><label class="q-lbl">6.18 Show email on website?</label>
+    <div class="radio-row"><label><input type="radio" name="f6_18" value="Yes"> Yes</label><label><input type="radio" name="f6_18" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">6.19 Show phone on website?</label>
+    <div class="radio-row"><label><input type="radio" name="f6_19" value="Yes"> Yes</label><label><input type="radio" name="f6_19" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">6.20 Total attorneys to feature <span class="req">*</span></label><input type="text" id="f6_20" placeholder="Number"></div>
+  <div class="q"><label class="q-lbl">6.21 Non-attorney staff to feature?</label>
+    <div class="radio-row"><label><input type="radio" name="f6_21" value="Yes"> Yes</label><label><input type="radio" name="f6_21" value="No"> No</label></div>
+  </div>
+</div>
+<div class="q"><label class="q-lbl">6.21a If yes, how many non-attorney staff?</label><input type="text" id="f6_21a"></div>
+</div>
+
+<!-- S7 -->
+<div class="sec" id="s7">
+<div class="sec-hd">Section 7 — Website goals & target audience</div>
+<div class="q"><label class="q-lbl">7.1 Primary goal(s) of this website <span class="req">*</span></label>
+  <div class="check-col"><label><input type="checkbox" name="f7_1" value="Generate new client leads / enquiries"> Generate new client leads / enquiries</label><label><input type="checkbox" name="f7_1" value="Build online credibility and trust"> Build online credibility and trust</label><label><input type="checkbox" name="f7_1" value="Showcase attorney profiles and expertise"> Showcase attorney profiles and expertise</label><label><input type="checkbox" name="f7_1" value="Rank on Google for local searches"> Rank on Google for local searches</label><label><input type="checkbox" name="f7_1" value="Allow clients to book consultations online"> Allow clients to book consultations online</label><label><input type="checkbox" name="f7_1" value="Provide legal information & resources"> Provide legal information & resources</label><label><input type="checkbox" name="f7_1" value="All of the above"> All of the above</label></div>
+</div>
+<div class="q"><label class="q-lbl">7.2 Ideal / target clients <span class="req">*</span></label>
+  <div class="check-col"><label><input type="checkbox" name="f7_2" value="Individuals (general public)"> Individuals (general public)</label><label><input type="checkbox" name="f7_2" value="Businesses / Corporations"> Businesses / Corporations</label><label><input type="checkbox" name="f7_2" value="Government agencies"> Government agencies</label><label><input type="checkbox" name="f7_2" value="Non-profit organizations"> Non-profit organizations</label><label><input type="checkbox" name="f7_2" value="Both individuals and businesses"> Both individuals and businesses</label></div>
+</div>
+<div class="q"><label class="q-lbl">7.3 Primary client age group <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f7_3" value="18–30"> 18–30</label><label><input type="radio" name="f7_3" value="31–45"> 31–45</label><label><input type="radio" name="f7_3" value="46–60"> 46–60</label><label><input type="radio" name="f7_3" value="60+"> 60+</label><label><input type="radio" name="f7_3" value="All ages"> All ages</label></div>
+</div>
+<div class="q"><label class="q-lbl">7.4 Most desired visitor action <span class="req">*</span></label>
+  <div class="check-col"><label><input type="checkbox" name="f7_4" value="Call the office directly"> Call the office directly</label><label><input type="checkbox" name="f7_4" value="Fill out a contact/enquiry form"> Fill out a contact/enquiry form</label><label><input type="checkbox" name="f7_4" value="Book a consultation online"> Book a consultation online</label><label><input type="checkbox" name="f7_4" value="Send an email"> Send an email</label><label><input type="checkbox" name="f7_4" value="Download a resource or brochure"> Download a resource or brochure</label></div>
+</div>
+<div class="q"><label class="q-lbl">7.5 Free initial consultations? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f7_5" value="Yes"> Yes</label><label><input type="radio" name="f7_5" value="No"> No</label><label><input type="radio" name="f7_5" value="For certain cases only"> For certain cases only</label></div>
+</div>
+<div class="q"><label class="q-lbl">7.6 Preferred contact methods for new clients <span class="req">*</span></label>
+  <div class="check-row"><label><input type="checkbox" name="f7_6" value="Phone call"> Phone call</label><label><input type="checkbox" name="f7_6" value="Email"> Email</label><label><input type="checkbox" name="f7_6" value="Online booking"> Online booking</label><label><input type="checkbox" name="f7_6" value="WhatsApp"> WhatsApp</label><label><input type="checkbox" name="f7_6" value="Walk-in"> Walk-in</label><label><input type="checkbox" name="f7_6" value="All of the above"> All of the above</label></div>
+</div>
+</div>
+
+<!-- S8 -->
+<div class="sec" id="s8">
+<div class="sec-hd">Section 8 — Website features & functionality</div>
+<div class="sec-note">Select the priority for each feature you want included.</div>
+<table class="pa-table">
+<thead><tr><th>Feature</th><th>High</th><th>Medium</th><th>Low</th><th>No</th></tr></thead>
+<tbody id="feat-tbody"></tbody>
+</table>
+<div class="q" style="margin-top:12px"><label class="q-lbl">8.14 Multi-language — if yes, which languages?</label><input type="text" id="f8_14" placeholder="e.g. English, French, Hausa"></div>
+</div>
+
+<!-- S9 -->
+<div class="sec" id="s9">
+<div class="sec-hd">Section 9 — Content & media</div>
+<div class="q"><label class="q-lbl">9.1 Who provides written content? <span class="req">*</span></label>
+  <div class="radio-col"><label><input type="radio" name="f9_1" value="The firm will provide all content"> The firm will provide all content</label><label><input type="radio" name="f9_1" value="Development team will write all content"> Development team will write all content</label><label><input type="radio" name="f9_1" value="Combination — firm provides raw info, team refines"> Combination — firm provides raw info, team refines</label></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">9.2 Existing marketing materials?</label>
+    <div class="radio-row"><label><input type="radio" name="f9_2" value="Yes — will attach"> Yes</label><label><input type="radio" name="f9_2" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">9.3 Testimonials ready to publish?</label>
+    <div class="radio-row"><label><input type="radio" name="f9_3" value="Yes"> Yes</label><label><input type="radio" name="f9_3" value="No"> No</label><label><input type="radio" name="f9_3" value="Will collect later"> Later</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">9.3a If yes, how many?</label><input type="text" id="f9_3a"></div>
+  <div class="q"><label class="q-lbl">9.4 Case results to feature?</label>
+    <div class="radio-row"><label><input type="radio" name="f9_4" value="Yes"> Yes</label><label><input type="radio" name="f9_4" value="No"> No</label><label><input type="radio" name="f9_4" value="Will provide later"> Later</label></div>
+  </div>
+</div>
+<div class="q"><label class="q-lbl">9.5 Video content available?</label>
+  <div class="radio-col"><label><input type="radio" name="f9_5" value="Yes — will provide links/files"> Yes — will provide links/files</label><label><input type="radio" name="f9_5" value="No"> No</label><label><input type="radio" name="f9_5" value="We plan to create videos later"> We plan to create videos later</label></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">9.6 Blog section?</label>
+    <div class="radio-row"><label><input type="radio" name="f9_6" value="Yes"> Yes</label><label><input type="radio" name="f9_6" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">9.6a If yes, who writes it?</label><input type="text" id="f9_6a"></div>
+</div>
+<div class="q"><label class="q-lbl">9.7 How often will you update content? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f9_7" value="Weekly"> Weekly</label><label><input type="radio" name="f9_7" value="Monthly"> Monthly</label><label><input type="radio" name="f9_7" value="Quarterly"> Quarterly</label><label><input type="radio" name="f9_7" value="Only when necessary"> Only when necessary</label></div>
+</div>
+</div>
+
+<!-- S10 -->
+<div class="sec" id="s10">
+<div class="sec-hd">Section 10 — SEO & marketing</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">10.1 Google Business Profile?</label>
+    <div class="radio-col"><label><input type="radio" name="f10_1" value="Yes"> Yes</label><label><input type="radio" name="f10_1" value="No"> No</label><label><input type="radio" name="f10_1" value="Need help setting up"> Need help setting up</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">10.2 Google Analytics set up?</label>
+    <div class="radio-row"><label><input type="radio" name="f10_2" value="Yes"> Yes</label><label><input type="radio" name="f10_2" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">10.3 Google Search Console?</label>
+    <div class="radio-row"><label><input type="radio" name="f10_3" value="Yes"> Yes</label><label><input type="radio" name="f10_3" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">10.6 Currently running paid ads?</label>
+    <div class="radio-row"><label><input type="radio" name="f10_6" value="Yes"> Yes</label><label><input type="radio" name="f10_6" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">10.7 SEO optimization in this project? <span class="req">*</span></label>
+    <div class="radio-row"><label><input type="radio" name="f10_7" value="Yes"> Yes</label><label><input type="radio" name="f10_7" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">10.8 Collect emails for newsletters?</label>
+    <div class="radio-row"><label><input type="radio" name="f10_8" value="Yes"> Yes</label><label><input type="radio" name="f10_8" value="No"> No</label></div>
+  </div>
+</div>
+<div class="q"><label class="q-lbl">10.4 Keywords to rank for on Google</label><textarea id="f10_4" rows="3" placeholder='One per line — e.g. "divorce lawyer in Lagos"'></textarea></div>
+<div class="q"><label class="q-lbl">10.5 Cities / regions for SEO focus <span class="req">*</span></label><input type="text" id="f10_5" placeholder="e.g. Lagos, Abuja, Port Harcourt"></div>
+</div>
+
+<!-- S11 -->
+<div class="sec" id="s11">
+<div class="sec-hd">Section 11 — Technical preferences</div>
+<div class="q"><label class="q-lbl">11.1 Preference for any theme / template?</label><input type="text" id="f11_1" placeholder="Leave blank to let the team decide"></div>
+<div class="q"><label class="q-lbl">11.2 Page builder preference</label>
+  <div class="radio-row"><label><input type="radio" name="f11_2" value="Elementor"> Elementor</label><label><input type="radio" name="f11_2" value="Divi"> Divi</label><label><input type="radio" name="f11_2" value="No preference"> No preference</label></div>
+</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">11.3 Multiple languages needed?</label>
+    <div class="radio-row"><label><input type="radio" name="f11_3" value="Yes"> Yes</label><label><input type="radio" name="f11_3" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">11.4 Domain-linked email needed?</label>
+    <div class="radio-row"><label><input type="radio" name="f11_4" value="Yes"> Yes</label><label><input type="radio" name="f11_4" value="No — already have it"> Already have it</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">11.5 Accessibility requirements?</label>
+    <div class="radio-row"><label><input type="radio" name="f11_5" value="Yes"> Yes</label><label><input type="radio" name="f11_5" value="No"> No</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">11.6 GDPR / data protection compliance?</label>
+    <div class="radio-row"><label><input type="radio" name="f11_6" value="Yes"> Yes</label><label><input type="radio" name="f11_6" value="No"> No</label><label><input type="radio" name="f11_6" value="Not sure"> Not sure</label></div>
+  </div>
+  <div class="q"><label class="q-lbl">11.7 Ongoing maintenance after launch?</label>
+    <div class="radio-row"><label><input type="radio" name="f11_7" value="Yes"> Yes</label><label><input type="radio" name="f11_7" value="No"> No</label><label><input type="radio" name="f11_7" value="Discuss later"> Discuss later</label></div>
+  </div>
+</div>
+</div>
+
+<!-- S12 -->
+<div class="sec" id="s12">
+<div class="sec-hd">Section 12 — Project timeline & budget</div>
+<div class="g2">
+  <div class="q"><label class="q-lbl">12.1 Desired launch date <span class="req">*</span></label><input type="text" id="f12_1" placeholder="e.g. July 2025"></div>
+  <div class="q"><label class="q-lbl">12.2 Is this date flexible? <span class="req">*</span></label>
+    <div class="radio-row" style="margin-top:10px"><label><input type="radio" name="f12_2" value="Yes"> Yes</label><label><input type="radio" name="f12_2" value="No — hard deadline"> Hard deadline</label></div>
+  </div>
+</div>
+<div class="q"><label class="q-lbl">12.3 Total budget for this project <span class="req">*</span></label><input type="text" id="f12_3" placeholder="e.g. ₦500,000 or USD 2,000"></div>
+<div class="q"><label class="q-lbl">12.4 Does budget include hosting & maintenance?</label>
+  <div class="radio-row"><label><input type="radio" name="f12_4" value="Yes"> Yes</label><label><input type="radio" name="f12_4" value="No"> No</label><label><input type="radio" name="f12_4" value="To be discussed"> To be discussed</label></div>
+</div>
+<div class="q"><label class="q-lbl">12.5 Primary point of contact <span class="req">*</span></label><input type="text" id="f12_5"></div>
+<div class="q"><label class="q-lbl">12.6 Best way to reach them <span class="req">*</span></label>
+  <div class="check-row"><label><input type="checkbox" name="f12_6" value="Phone"> Phone</label><label><input type="checkbox" name="f12_6" value="Email"> Email</label><label><input type="checkbox" name="f12_6" value="WhatsApp"> WhatsApp</label></div>
+</div>
+<div class="q"><label class="q-lbl">12.7 How quickly can you review and approve work? <span class="req">*</span></label>
+  <div class="radio-row"><label><input type="radio" name="f12_7" value="Within 24 hrs"> Within 24 hrs</label><label><input type="radio" name="f12_7" value="2–3 days"> 2–3 days</label><label><input type="radio" name="f12_7" value="1 week"> 1 week</label></div>
+</div>
+<div class="q"><label class="q-lbl">12.8 Who has final approval authority? <span class="req">*</span></label><input type="text" id="f12_8"></div>
+</div>
+
+<!-- S13 -->
+<div class="sec" id="s13">
+<div class="sec-hd">Section 13 — Competitor analysis</div>
+<div id="comp-list"></div>
+<div class="q" style="margin-top:6px"><label class="q-lbl">13.2 What should your website do better than competitors? <span class="req">*</span></label><textarea id="f13_2" rows="3"></textarea></div>
+</div>
+
+<!-- S14 -->
+<div class="sec" id="s14">
+<div class="sec-hd">Section 14 — Additional information</div>
+<div class="q"><label class="q-lbl">14.1 Anything specific you want that we haven't asked about?</label><textarea id="f14_1" rows="3"></textarea></div>
+<div class="q"><label class="q-lbl">14.2 Anything you absolutely DO NOT want on the website?</label><textarea id="f14_2" rows="3"></textarea></div>
+<div class="q"><label class="q-lbl">14.3 Other notes, requests, or concerns for the team?</label><textarea id="f14_3" rows="3"></textarea></div>
+</div>
+
+<!-- S15 Declaration -->
+<div class="sec" id="s15">
+<div class="sec-hd">Declaration & submission</div>
+<p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.6">By submitting this form, I confirm that all information provided is accurate to the best of my knowledge, and I authorise the development team to use this information solely for the purpose of building the law firm website.</p>
+<div class="g2">
+  <div class="q"><label class="q-lbl">Client full name <span class="req">*</span></label><input type="text" id="fdec_1"></div>
+  <div class="q"><label class="q-lbl">Position / Title <span class="req">*</span></label><input type="text" id="fdec_2"></div>
+  <div class="q"><label class="q-lbl">Firm name <span class="req">*</span></label><input type="text" id="fdec_3"></div>
+  <div class="q"><label class="q-lbl">Date completed <span class="req">*</span></label><input type="date" id="fdec_4"></div>
+</div>
+</div>
+
+<!-- Done -->
+<div class="sec" id="sdone">
+<div class="done-wrap">
+  <div class="done-check">&#10003;</div>
+  <h2>Questionnaire complete</h2>
+  <p>Thank you! Download your responses below to share with the development team.</p>
+  <div class="dl-btns">
+    <button class="btn btn-primary" onclick="dlJSON()">Download JSON</button>
+    <button class="btn" onclick="dlText()">Download as text</button>
+    <button class="btn" onclick="window.print()">Print / save PDF</button>
+  </div>
+</div>
+</div>
+
+<div class="nav" id="nav-bar">
+  <button class="btn" id="btn-back" onclick="go(-1)" disabled>&#8592; Back</button>
+  <button class="btn btn-primary" id="btn-next" onclick="go(1)">Next &#8594;</button>
+</div>
+</div>
+</div>
+
+<script>
+var cur=0,total=15;
+var sids=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15','sdone'];
+var pas=['5.1 Corporate & Commercial Law','5.2 Criminal Law & Defence','5.3 Family Law & Divorce','5.4 Real Estate / Property Law','5.5 Employment & Labour Law','5.6 Immigration Law','5.7 Intellectual Property Law','5.8 Personal Injury / Tort Law','5.9 Wills, Trusts & Estates','5.10 Civil Litigation','5.11 Tax Law','5.12 Banking & Finance Law','5.13 Medical Malpractice','5.14 Constitutional Law','5.15 Human Rights Law'];
+var feats=['8.1 Contact Form','8.2 Online Consultation Booking','8.3 Live Chat Feature','8.4 WhatsApp Chat Button','8.5 Blog / Legal Articles','8.6 Client Testimonials','8.7 Case Results / Wins','8.8 FAQ Page','8.9 Downloadable Resources','8.10 Google Maps Embed','8.11 Social Media Feed','8.12 Newsletter Subscription','8.13 Client Portal / Login','8.15 Photo / Video Gallery','8.16 Attorney Profile Pages','8.17 Emergency / After-Hours Contact','8.18 Popup / Banner','8.19 Cookie Consent Banner','8.20 Privacy Policy Page','8.21 Legal Disclaimer Page','8.22 Terms & Conditions Page'];
+
+function makeTableRows(arr,prefix,tbody){
+  var h='';
+  arr.forEach(function(nm,i){
+    h+='<tr><td>'+nm+'</td>';
+    ['High','Medium','Low','No'].forEach(function(v){
+      h+='<td><label><input type="radio" name="'+prefix+i+'" value="'+v+'"> '+v+'</label></td>';
+    });
+    h+='</tr>';
+  });
+  document.getElementById(tbody).innerHTML=h;
+}
+
+function makeCompetitors(){
+  var h='';
+  for(var i=1;i<=5;i++){
+    h+='<div class="comp-block"><div class="comp-block-lbl">Competitor '+i+'</div><div class="g3"><div class="q"><label class="q-lbl">Firm name</label><input type="text" id="comp'+i+'n"></div><div class="q"><label class="q-lbl">Website URL</label><input type="text" id="comp'+i+'u" placeholder="https://"></div><div class="q"><label class="q-lbl">What you like about it</label><input type="text" id="comp'+i+'l"></div></div></div>';
+  }
+  document.getElementById('comp-list').innerHTML=h;
+}
+
+function go(d){
+  var nxt=cur+d;
+  if(nxt<0||nxt>total)return;
+  document.getElementById(sids[cur]).classList.remove('on');
+  cur=nxt;
+  document.getElementById(sids[cur]).classList.add('on');
+  var done=cur===total;
+  document.getElementById('nav-bar').style.display=done?'none':'flex';
+  document.getElementById('btn-back').disabled=cur===0;
+  document.getElementById('btn-next').innerHTML=cur===total-1?'Submit &#10003;':'Next &#8594;';
+  var pct=Math.round(((cur+1)/(total+1))*100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-txt').textContent=done?'Complete':'Section '+(cur+1)+' of '+total;
+  document.querySelector('.wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function gr(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:'';}
+function gc(n){return Array.from(document.querySelectorAll('input[name="'+n+'"]:checked')).map(function(e){return e.value;});}
+
+function collect(){
+  var d={};
+  d.s1={firm_name:gv('f1_1'),trading_name:gv('f1_2'),year_est:gv('f1_3'),address:gv('f1_4'),city_country:gv('f1_5'),postal:gv('f1_6'),phone:gv('f1_7'),fax:gv('f1_8'),email:gv('f1_9'),web_email:gv('f1_10'),whatsapp:gv('f1_11'),multiple_offices:gr('f1_12'),branch_addresses:gv('f1_13'),office_hours:gv('f1_14')};
+  d.s2={domain:gv('f2_1'),registrar:gv('f2_2'),existing_site:gr('f2_3'),site_url:gv('f2_4'),likes:gv('f2_5'),dislikes:gv('f2_6'),social_pages:gr('f2_7'),facebook:gv('f2_8a'),linkedin:gv('f2_8b'),instagram:gv('f2_8c'),twitter:gv('f2_8d'),youtube:gv('f2_8e'),other_social:gv('f2_8f'),google_profile:gr('f2_9')};
+  d.s3={has_logo:gr('f3_1'),logo_hires:gr('f3_2'),need_logo:gr('f3_3'),colors:gv('f3_4'),color_tones:gc('f3_5'),fonts:gv('f3_6'),look_feel:gc('f3_7'),ref1:gv('f3_8a'),ref2:gv('f3_8b'),ref3:gv('f3_8c'),ref_notes:gv('f3_9'),brand_guide:gr('f3_10'),attorney_photos:gr('f3_11'),office_photos:gr('f3_12'),stock_photos:gr('f3_13')};
+  d.s4={description:gv('f4_1'),mission:gv('f4_2'),vision:gv('f4_3'),values:gv('f4_4'),usp:gv('f4_5'),achievements:gv('f4_6'),jurisdictions:gv('f4_7')};
+  d.s5={practice_areas:{}};
+  pas.forEach(function(a,i){d.s5.practice_areas[a]=gr('pa'+i);});
+  d.s5.other1=gv('f5_16');d.s5.other2=gv('f5_17');d.s5.content_provider=gr('f5_18');
+  d.s6={name:gv('f6_1'),title:gv('f6_2'),bar_no:gv('f6_3'),year_bar:gv('f6_4'),exp:gv('f6_10'),jurisdictions:gv('f6_5'),school:gv('f6_6'),degrees:gv('f6_7'),grad_year:gv('f6_8'),specialization:gv('f6_9'),languages:gv('f6_11'),achievements:gv('f6_12'),memberships:gv('f6_13'),awards:gv('f6_14'),bio:gv('f6_15'),headshot:gr('f6_16'),linkedin:gv('f6_17'),show_email:gr('f6_18'),show_phone:gr('f6_19'),total_attorneys:gv('f6_20'),non_atty_staff:gr('f6_21'),staff_count:gv('f6_21a')};
+  d.s7={goals:gc('f7_1'),target_clients:gc('f7_2'),age_group:gr('f7_3'),desired_action:gc('f7_4'),free_consult:gr('f7_5'),contact_methods:gc('f7_6')};
+  d.s8={features:{}};
+  feats.forEach(function(f,i){d.s8.features[f]=gr('feat'+i);});
+  d.s8.languages=gv('f8_14');
+  d.s9={content_provider:gr('f9_1'),materials:gr('f9_2'),testimonials:gr('f9_3'),testimonial_count:gv('f9_3a'),case_results:gr('f9_4'),video:gr('f9_5'),blog:gr('f9_6'),blog_writer:gv('f9_6a'),update_freq:gr('f9_7')};
+  d.s10={google_profile:gr('f10_1'),analytics:gr('f10_2'),search_console:gr('f10_3'),keywords:gv('f10_4'),seo_regions:gv('f10_5'),paid_ads:gr('f10_6'),seo_project:gr('f10_7'),newsletters:gr('f10_8')};
+  d.s11={theme:gv('f11_1'),page_builder:gr('f11_2'),multilang:gr('f11_3'),domain_email:gr('f11_4'),accessibility:gr('f11_5'),gdpr:gr('f11_6'),maintenance:gr('f11_7')};
+  d.s12={launch_date:gv('f12_1'),flexible:gr('f12_2'),budget:gv('f12_3'),budget_incl:gr('f12_4'),contact:gv('f12_5'),contact_method:gc('f12_6'),review_speed:gr('f12_7'),approver:gv('f12_8')};
+  d.s13={competitors:[]};
+  for(var i=1;i<=5;i++)d.s13.competitors.push({name:gv('comp'+i+'n'),url:gv('comp'+i+'u'),notes:gv('comp'+i+'l')});
+  d.s13.beat_competitors=gv('f13_2');
+  d.s14={extra:gv('f14_1'),dont_want:gv('f14_2'),notes:gv('f14_3')};
+  d.declaration={name:gv('fdec_1'),title:gv('fdec_2'),firm:gv('fdec_3'),date:gv('fdec_4')};
+  return d;
+}
+
+function dlJSON(){
+  var b=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='lawfirm_questionnaire.json';a.click();
+}
+
+function dlText(){
+  var d=collect(),lines=['LAW FIRM WEBSITE — CLIENT QUESTIONNAIRE','='.repeat(48),''];
+  function flat(obj,pfx){Object.keys(obj).forEach(function(k){var v=obj[k];if(v&&typeof v==='object'&&!Array.isArray(v)){lines.push('\n['+((pfx?pfx+'.':'')+k).toUpperCase()+']');flat(v,'');}else{lines.push((pfx?pfx+'.':'')+k+': '+(Array.isArray(v)?v.join(', '):(v||'—')));}})}
+  flat(d,'');
+  var b=new Blob([lines.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='lawfirm_questionnaire.txt';a.click();
+}
+
+makeTableRows(pas,'pa','pa-tbody');
+makeTableRows(feats,'feat','feat-tbody');
+makeCompetitors();
+</script>
