@@ -1,0 +1,229 @@
+
+<style>
+  .brief { padding: 1rem 0; font-family: var(--font-sans); }
+  .section { margin-bottom: 2rem; }
+  .section-title { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--color-text-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 6px; margin-bottom: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; }
+  .card-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .card-value { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 99px; margin: 2px; }
+  .b-high { background: #EAF3DE; color: #27500A; }
+  .b-med  { background: #FAEEDA; color: #633806; }
+  .b-low  { background: #F1EFE8; color: #444441; }
+  .b-yes  { background: #E1F5EE; color: #085041; }
+  .b-no   { background: #FCEBEB; color: #791F1F; }
+  .b-info { background: #E6F1FB; color: #0C447C; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .full-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 10px; }
+  .full-card p { margin: 0 0 6px; font-size: 13px; line-height: 1.6; color: var(--color-text-primary); }
+  .kv { display: flex; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+  .kv:last-child { border-bottom: none; }
+  .kv-key { color: var(--color-text-secondary); min-width: 160px; flex-shrink: 0; }
+  .kv-val { color: var(--color-text-primary); font-weight: 500; }
+  .alert { background: var(--color-background-warning); border: 0.5px solid var(--color-border-warning); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--color-text-warning); }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: #E6F1FB; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 14px; color: #0C447C; flex-shrink: 0; }
+  .practice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
+  .prac-item { font-size: 12px; display: flex; justify-content: space-between; align-items: center; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 5px 10px; }
+  .prac-name { color: var(--color-text-primary); }
+</style>
+
+<div class="brief">
+
+  <div class="section">
+    <div class="section-title">1 — Firm identity</div>
+    <div class="cards">
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-label">Official firm name</div>
+        <div class="card-value">Bayo Funso Adaramola and Co / Summit Law Firm</div>
+      </div>
+      <div class="card"><div class="card-label">Year established</div><div class="card-value">1990</div></div>
+      <div class="card"><div class="card-label">Office hours</div><div class="card-value">8am – 6pm, Mon – Fri</div></div>
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-label">Head office address</div>
+        <div class="card-value">Ndamela House, Plot 500 Tafawa Balewa Road, Area 3, Garki, Abuja FCT</div>
+      </div>
+      <div class="card"><div class="card-label">Phone numbers</div><div class="card-value">+234 803 786 0492<br>+234 805 435 3903</div></div>
+      <div class="card"><div class="card-label">WhatsApp</div><div class="card-value">+234 809 360 5871</div></div>
+      <div class="card"><div class="card-label">Primary email</div><div class="card-value">summitlegal.ba@gmail.com</div></div>
+      <div class="card"><div class="card-label">Enquiries email</div><div class="card-value">fadaramola2007@yahoo.com<br>fadaramola@nigerianbar.ng</div></div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="kv-key" style="font-size:12px; color:var(--color-text-secondary); margin-bottom:6px;">Branch offices</div>
+      <div class="full-card" style="padding: 10px 14px;">
+        <div class="kv"><span class="kv-key">Kano</span><span class="kv-val">No. 9A Post Office Road, Kano, Kano State</span></div>
+        <div class="kv"><span class="kv-key">Lagos</span><span class="kv-val">No. 51 Opebi Street, Ikeja, Lagos</span></div>
+        <div class="kv"><span class="kv-key">Ilorin</span><span class="kv-val">No. 26 Emir's Road, Ilorin, Kwara State</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">2 — Domain & social media</div>
+    <div class="alert">⚠ No domain registered yet — needs to be acquired as part of this project.</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Facebook</div><div class="card-value"><span class="badge b-yes">Active</span></div></div>
+      <div class="card"><div class="card-label">LinkedIn</div><div class="card-value"><span class="badge b-yes">Active</span></div></div>
+      <div class="card"><div class="card-label">Instagram</div><div class="card-value"><span class="badge b-yes">Active</span></div></div>
+      <div class="card"><div class="card-label">Twitter / X</div><div class="card-value"><span class="badge b-yes">Active</span></div></div>
+      <div class="card"><div class="card-label">Google Business</div><div class="card-value"><span class="badge b-info">Needs setup</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">3 — Brand & design</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Existing logo</div><div class="card-value"><span class="badge b-yes">Yes</span> <span class="badge b-no">Not hi-res</span></div></div>
+      <div class="card"><div class="card-label">New logo needed</div><div class="card-value"><span class="badge b-yes">Yes</span></div></div>
+      <div class="card"><div class="card-label">Brand colours</div><div class="card-value">Yellow &amp; Black <span style="display:inline-block;width:12px;height:12px;background:#FFD700;border:0.5px solid #ccc;border-radius:2px;vertical-align:middle;margin-left:4px;"></span><span style="display:inline-block;width:12px;height:12px;background:#111;border-radius:2px;vertical-align:middle;margin-left:3px;"></span></div></div>
+      <div class="card"><div class="card-label">Preferred font</div><div class="card-value">Cursive / Serif</div></div>
+      <div class="card"><div class="card-label">Brand guidelines</div><div class="card-value"><span class="badge b-no">None yet</span></div></div>
+      <div class="card"><div class="card-label">Attorney photos</div><div class="card-value"><span class="badge b-yes">Available</span></div></div>
+      <div class="card"><div class="card-label">Stock photography</div><div class="card-value">If needed</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">4 — Firm identity & messaging</div>
+    <div class="full-card">
+      <div class="kv"><span class="kv-key">Description</span><span class="kv-val">Barristers &amp; Solicitors of the Supreme Court of Nigeria, Notary Publics, Corporate &amp; Legal Consultants. Built to deliver cutting-edge legal services using modern technology.</span></div>
+      <div class="kv"><span class="kv-key">Mission</span><span class="kv-val">Deploy vast legal experience to provide cutting-edge services, contributing to a just and peaceful society.</span></div>
+      <div class="kv"><span class="kv-key">Vision</span><span class="kv-val">To become a reference point in the provision of quality legal services.</span></div>
+      <div class="kv"><span class="kv-key">Core values</span><span class="kv-val">Honesty · Service · Relationship</span></div>
+      <div class="kv"><span class="kv-key">USP</span><span class="kv-val">Friendly and personalised client relationships</span></div>
+      <div class="kv"><span class="kv-key">Key achievements</span><span class="kv-val">Appointment as Notary Public; appellate court litigation victories</span></div>
+      <div class="kv"><span class="kv-key">Jurisdictions</span><span class="kv-val">Nigeria · West Africa · Africa · UK</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">5 — Practice areas (priority)</div>
+    <div class="practice-grid">
+      <div class="prac-item"><span class="prac-name">Corporate &amp; Commercial</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Real Estate / Property</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Employment &amp; Labour</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Intellectual Property</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Civil Litigation</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Banking &amp; Finance</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Constitutional Law</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Human Rights Law</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Immigration Law</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Personal Injury / Tort</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Wills, Trusts &amp; Estates</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Tax Law</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Criminal Law</span><span class="badge b-low">Low</span></div>
+      <div class="prac-item"><span class="prac-name">Medical Malpractice</span><span class="badge b-low">Low</span></div>
+      <div class="prac-item"><span class="prac-name">Customary Arbitration</span><span class="badge b-info">Custom</span></div>
+    </div>
+    <div style="margin-top:8px; font-size:12px; color:var(--color-text-secondary);">Content: Principal Partner provides some; team writes the rest.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">6 — Principal attorney profile</div>
+    <div class="full-card">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+        <div class="avatar">AA</div>
+        <div>
+          <div style="font-weight:500; font-size:15px; color:var(--color-text-primary);">Adebayo Funso Adaramola Esq.</div>
+          <div style="font-size:12px; color:var(--color-text-secondary);">Principal Partner · Called to Bar 1986 · 39 years' experience</div>
+        </div>
+      </div>
+      <div class="kv"><span class="kv-key">Law school</span><span class="kv-val">University of Maiduguri (LL.B, 2:1) · Nigerian Law School (BL, 2:1)</span></div>
+      <div class="kv"><span class="kv-key">Specialisation</span><span class="kv-val">Intellectual Property, Trademark &amp; Civil Litigation</span></div>
+      <div class="kv"><span class="kv-key">Languages</span><span class="kv-val">English · Hausa · Yoruba</span></div>
+      <div class="kv"><span class="kv-key">Memberships</span><span class="kv-val">Nigerian Bar Association · Institute of Management Consultants</span></div>
+      <div class="kv"><span class="kv-key">Notable cases</span><span class="kv-val">Fas Agro Industrial Co. Ltd v Royal Bags (Trademark); Sahab Ent. Ltd (Land recovery to appellate level)</span></div>
+      <div class="kv"><span class="kv-key">Award</span><span class="kv-val">Distinguished Merit Award – NANNS</span></div>
+      <div class="kv"><span class="kv-key">Headshot</span><span class="kv-val"><span class="badge b-yes">Available</span></span></div>
+      <div class="kv"><span class="kv-key">Show email / phone</span><span class="kv-val">Yes / Yes</span></div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Total attorneys to feature</div><div class="card-value">5</div></div>
+      <div class="card"><div class="card-label">Non-attorney staff</div><div class="card-value">2</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">7 — Website goals & audience</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Primary goal</div><div class="card-value">All objectives (attract, inform, generate leads, showcase team)</div></div>
+      <div class="card"><div class="card-label">Target clients</div><div class="card-value">Individuals &amp; Businesses · All ages</div></div>
+      <div class="card"><div class="card-label">Desired action</div><div class="card-value">Send an email</div></div>
+      <div class="card"><div class="card-label">Preferred contact</div><div class="card-value">Email</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">8 — Website features (priority)</div>
+    <div class="practice-grid">
+      <div class="prac-item"><span class="prac-name">WhatsApp Chat Button</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Social Media Feed</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Attorney Profile Pages</span><span class="badge b-high">High</span></div>
+      <div class="prac-item"><span class="prac-name">Contact Form</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Online Consultation Booking</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Client Testimonials</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Case Results / Wins</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">FAQ Page</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Downloadable Resources</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Newsletter Subscription</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Client Portal / Login</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Photo / Video Gallery</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Privacy Policy Page</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Legal Disclaimer Page</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">T&amp;C Page</span><span class="badge b-med">Medium</span></div>
+      <div class="prac-item"><span class="prac-name">Live Chat Feature</span><span class="badge b-low">Low</span></div>
+      <div class="prac-item"><span class="prac-name">Blog / Legal Articles</span><span class="badge b-low">Low</span></div>
+      <div class="prac-item"><span class="prac-name">Google Maps Embed</span><span class="badge b-no">Not wanted</span></div>
+    </div>
+    <div style="margin-top:8px; font-size:12px; color:var(--color-text-secondary);">Multi-language: English · Hausa · Yoruba (requested)</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">9 — Content readiness</div>
+    <div class="alert">⚠ No testimonials, case results, videos, or blog content is ready. Content is a shared effort — firm supplies raw info, developer team refines.</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Written content</div><div class="card-value">Shared (firm + team)</div></div>
+      <div class="card"><div class="card-label">Marketing materials</div><div class="card-value"><span class="badge b-no">None</span></div></div>
+      <div class="card"><div class="card-label">Testimonials</div><div class="card-value"><span class="badge b-no">Not ready</span></div></div>
+      <div class="card"><div class="card-label">Video content</div><div class="card-value"><span class="badge b-no">None</span></div></div>
+      <div class="card"><div class="card-label">Update frequency</div><div class="card-value">Only when necessary</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">10 — SEO & digital marketing</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Google Business Profile</div><div class="card-value"><span class="badge b-info">Needs setup help</span></div></div>
+      <div class="card"><div class="card-label">Google Analytics</div><div class="card-value"><span class="badge b-no">Not set up</span></div></div>
+      <div class="card"><div class="card-label">Search Console</div><div class="card-value"><span class="badge b-yes">Yes</span></div></div>
+      <div class="card"><div class="card-label">SEO in this project</div><div class="card-value"><span class="badge b-no">Not requested</span></div></div>
+      <div class="card"><div class="card-label">Paid ads running</div><div class="card-value"><span class="badge b-no">No</span></div></div>
+      <div class="card"><div class="card-label">Newsletter emails</div><div class="card-value"><span class="badge b-yes">Yes — collect</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">11 — Technical requirements</div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Platform preference</div><div class="card-value">No preference</div></div>
+      <div class="card"><div class="card-label">Page builder</div><div class="card-value">No preference</div></div>
+      <div class="card"><div class="card-label">Multiple languages</div><div class="card-value"><span class="badge b-no">Not required</span></div></div>
+      <div class="card"><div class="card-label">Domain-linked email</div><div class="card-value"><span class="badge b-yes">Required</span></div></div>
+      <div class="card"><div class="card-label">Accessibility</div><div class="card-value"><span class="badge b-yes">Required</span></div></div>
+      <div class="card"><div class="card-label">GDPR/Data protection</div><div class="card-value"><span class="badge b-yes">Required</span></div></div>
+      <div class="card"><div class="card-label">Post-launch maintenance</div><div class="card-value"><span class="badge b-yes">Yes</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">12 — Project management</div>
+    <div class="full-card">
+      <div class="kv"><span class="kv-key">Desired launch date</span><span class="kv-val">As soon as possible</span></div>
+      <div class="kv"><span class="kv-key">Point of contact</span><span class="kv-val">Damilola</span></div>
+      <div class="kv"><span class="kv-key">Review turnaround</span><span class="kv-val">2 – 3 days</span></div>
+      <div class="kv"><span class="kv-key">Final approval authority</span><span class="kv-val">Adebayo Funso Adaramola Esq. (Principal Partner)</span></div>
+      <div class="kv"><span class="kv-key">Form completeness</div><span class="kv-val">88% — very strong submission</span></div>
+    </div>
+  </div>
+
+</div>
